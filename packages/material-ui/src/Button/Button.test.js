@@ -298,6 +298,24 @@ describe('<Button />', () => {
     expect(button.querySelector('.touch-ripple')).not.to.equal(null);
   });
 
+  it('should be able to focus visible the button', () => {
+    /**
+     * @type {React.RefObject<import('./ButtonBase').ButtonBaseActions>}
+     */
+    const buttonActionsRef = React.createRef();
+    const { getByRole } = render(
+      <Button ref={buttonActionsRef} focusVisibleClassName="focusVisible">
+        Hello
+      </Button>,
+    );
+
+    const button = getByRole('button');
+    // @ts-ignore
+    buttonActionsRef.current.focus();
+
+    expect(button.className).to.equal('MuiButtonBase-root MuiButton-root MuiButton-text Mui-focusVisible focusVisible');
+  });
+
   it('can disable the ripple', () => {
     const { getByRole } = render(
       <Button disableRipple TouchRippleProps={{ className: 'touch-ripple' }}>
